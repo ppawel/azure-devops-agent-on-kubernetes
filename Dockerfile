@@ -1,5 +1,5 @@
 ARG ARG_UBUNTU_BASE_IMAGE="ubuntu"
-ARG ARG_UBUNTU_BASE_IMAGE_TAG="20.04"
+ARG ARG_UBUNTU_BASE_IMAGE_TAG="24.04"
 
 FROM ${ARG_UBUNTU_BASE_IMAGE}:${ARG_UBUNTU_BASE_IMAGE_TAG}
 WORKDIR /azp
@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     lsb-release \
     software-properties-common \
+    openjdk-21-jdk \
     && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get -y upgrade
 
@@ -99,6 +100,7 @@ RUN chmod +x start.sh
 
 
 # Create non-root user under docker group
+RUN userdel -r ubuntu
 RUN useradd -m -s /bin/bash -u "1000" azdouser
 RUN groupadd docker && usermod -aG docker azdouser
 RUN apt-get update \
