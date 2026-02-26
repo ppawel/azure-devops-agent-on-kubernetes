@@ -11,7 +11,7 @@ on:
 
     
 env:
-  DOCKER_REPO_TAG: "btungut/azure-devops-agent:${{ github.event.inputs.docker-tag }}"
+  DOCKER_REPO_TAG: "ppawel/azure-devops-agent:${{ github.event.inputs.docker-tag }}"
 
 
 jobs:
