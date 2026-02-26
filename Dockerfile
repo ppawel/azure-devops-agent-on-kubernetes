@@ -25,11 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     lsb-release \
     software-properties-common \
-    openjdk-21-jdk \
     && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get -y upgrade
-
-
 
 # Download and extract the Azure DevOps Agent
 RUN printenv \
@@ -97,6 +94,9 @@ RUN apt-get update && apt-get -y upgrade
 COPY ./start.sh .
 RUN chmod +x start.sh
 
+ENV JAVA_HOME=/opt/java/openjdk
+COPY --from=eclipse-temurin:21 $JAVA_HOME $JAVA_HOME
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 
 # Create non-root user under docker group
