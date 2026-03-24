@@ -95,10 +95,12 @@ COPY ./start.sh .
 RUN chmod +x start.sh
 
 ENV JAVA_HOME_21_X64=/opt/java/openjdk
-ENV JAVA_HOME=/opt/java/openjdk
-COPY --from=eclipse-temurin:21 $JAVA_HOME $JAVA_HOME
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
+COPY --from=eclipse-temurin:21 /opt/java/openjdk $JAVA_HOME_21_X64
+ENV PATH="${JAVA_HOME_21_X64}/bin:${PATH}"
 
+ENV JAVA_HOME_25_X64=/opt/java/openjdk
+COPY --from=eclipse-temurin:25 /opt/java/openjdk $JAVA_HOME_25_X64
+ENV PATH="${JAVA_HOME_25_X64}/bin:${PATH}"
 
 # Create non-root user under docker group
 RUN userdel -r ubuntu
