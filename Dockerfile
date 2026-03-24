@@ -94,11 +94,11 @@ RUN apt-get update && apt-get -y upgrade
 COPY ./start.sh .
 RUN chmod +x start.sh
 
-ENV JAVA_HOME_21_X64=/opt/java/openjdk
+ENV JAVA_HOME_21_X64=/opt/java/openjdk21
 COPY --from=eclipse-temurin:21 /opt/java/openjdk $JAVA_HOME_21_X64
 ENV PATH="${JAVA_HOME_21_X64}/bin:${PATH}"
 
-ENV JAVA_HOME_25_X64=/opt/java/openjdk
+ENV JAVA_HOME_25_X64=/opt/java/openjdk25
 COPY --from=eclipse-temurin:25 /opt/java/openjdk $JAVA_HOME_25_X64
 ENV PATH="${JAVA_HOME_25_X64}/bin:${PATH}"
 
