@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     lsb-release \
     software-properties-common \
     python3-pip \
+    python3-requests \
     && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get -y upgrade
 
