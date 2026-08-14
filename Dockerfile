@@ -25,8 +25,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     lsb-release \
     software-properties-common \
+    # Python is needed by the Snyk build breaker ADO task
     python3-pip \
     python3-requests \
+    # Snyk build breaker runs `pip install requests` and Debian is Debian
+    && rm -f /usr/lib/python3.12/EXTERNALLY-MANAGED
     && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get -y upgrade
 
