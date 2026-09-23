@@ -1,5 +1,5 @@
 ARG ARG_UBUNTU_BASE_IMAGE="ubuntu"
-ARG ARG_UBUNTU_BASE_IMAGE_TAG="26.04"
+ARG ARG_UBUNTU_BASE_IMAGE_TAG="24.04"
 
 FROM ${ARG_UBUNTU_BASE_IMAGE}:${ARG_UBUNTU_BASE_IMAGE_TAG}
 WORKDIR /azp
@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     git-lfs \
     iputils-ping \
+    iproute2 \
     jq \
     lsb-release \
     software-properties-common \
