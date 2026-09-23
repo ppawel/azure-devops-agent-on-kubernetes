@@ -3,6 +3,7 @@ ARG ARG_UBUNTU_BASE_IMAGE_TAG="24.04"
 
 FROM ${ARG_UBUNTU_BASE_IMAGE}:${ARG_UBUNTU_BASE_IMAGE_TAG}
 WORKDIR /azp
+ENV TARGETARCH="linux-x64"
 ARG ARG_TARGETARCH=linux-x64
 ARG ARG_VSTS_AGENT_VERSION=4.275.0
 
@@ -18,6 +19,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     apt-utils \
     ca-certificates \
+    libicu74 \
     curl \
     git \
     git-lfs \
@@ -36,16 +38,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get -y upgrade
 
 # Download and extract the Azure DevOps Agent
-RUN printenv \
-    && echo "Downloading Azure DevOps Agent version ${ARG_VSTS_AGENT_VERSION} for ${ARG_TARGETARCH}"
-RUN curl -LsS https://download.agent.dev.azure.com/agent/${ARG_VSTS_AGENT_VERSION}/vsts-agent-${ARG_TARGETARCH}-${ARG_VSTS_AGENT_VERSION}.tar.gz | tar -xz
+#RUN printenv \
+#    && echo "Downloading Azure DevOps Agent version ${ARG_VSTS_AGENT_VERSION} for ${ARG_TARGETARCH}"
+#RUN curl -LsS https://download.agent.dev.azure.com/agent/${ARG_VSTS_AGENT_VERSION}/vsts-agent-${ARG_TARGETARCH}-${ARG_VSTS_AGENT_VERSION}.tar.gz | tar -xz
 
 
-# Install Azure CLI & Azure DevOps extension
-RUN curl -LsS https://aka.ms/InstallAzureCLIDeb | bash \
-    && rm -rf /var/lib/apt/lists/*
-RUN az extension add --name azure-devops
-
+# Install Azure CLI
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 
 # Install required tools
